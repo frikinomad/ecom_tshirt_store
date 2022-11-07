@@ -1,0 +1,47 @@
+openapi: "3.0.0"
+info:
+  title: tshirt store API
+  description: store to buy tshirts
+  version: 1.1.0
+  contact:
+    email: a@b.com
+
+servers:
+  - url: "{protocol}://localhost:4000/api/{version}"
+    description: for localhost
+    variables: 
+      version:
+        enum: 
+          - v1
+          - v2
+        default: v1 
+      protocol:
+        enum: 
+          - http
+          - https
+        default: http
+
+components:
+  securitySchemes:
+    cookieAuth:         # arbitrary name for the security scheme; will be used in the "security" key later
+      type: apiKey
+      in: cookie
+      name: token  # cookie name
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+paths:
+  /dummy:
+    get:
+      tags:
+        - Home
+      summary: returns a greeting
+      responses:
+        '200':
+          description: all good, Ok
+          content: 
+            application/json:
+              schema:
+                type: string
+                example: "mystring"

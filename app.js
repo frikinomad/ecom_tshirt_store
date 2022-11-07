@@ -6,6 +6,14 @@ const morgan = require('morgan')
 const cookieparser = require('cookie-parser')
 const fileUpload = require('express-fileupload')
 
+//for swagger docs
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+
 //regular middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
