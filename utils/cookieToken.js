@@ -1,5 +1,5 @@
 const cookieToken = (user, res) => {
-    const token = user.getJwtToken()
+    const token = user.getJwtToken()            //this method is there in user models
 
     const options = {
         expires: new Date(Date.now() + 3*24*60*1000),      //for 3 days

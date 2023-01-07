@@ -13,6 +13,8 @@ const swaggerDocument = YAML.load('./swagger.yaml');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+//temporary
+app.set("view engine", "ejs")
 
 //regular middleware
 app.use(express.json())
@@ -20,7 +22,10 @@ app.use(express.urlencoded({ extended: true }))
 
 //cookies and file middleware
 app.use(cookieparser())
-app.use(fileUpload())
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+}))
 
 //morgan middleware for logging
 app.use(morgan('tiny'))
@@ -32,6 +37,11 @@ const user = require('./routes/user')
 //router as middleware
 app.use("/api/v1", home)
 app.use("/api/v1", user)
+
+
+app.get('/signuptest', (req, res) => {
+    res.render('signuptest');
+})
 
 
 //exporting app
